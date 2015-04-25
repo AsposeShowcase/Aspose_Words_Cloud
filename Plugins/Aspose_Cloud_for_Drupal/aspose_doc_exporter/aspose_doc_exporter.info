@@ -1,0 +1,5 @@
+name = Aspose DOC Exporter
+description = A module to export content from nodes to docx/doc
+core = 7.x
+; NEW LINE
+configure = admin/settings/aspose-doc-exporter-settings

@@ -1,0 +1,387 @@
+<?php
+/**
+ * @file
+ * A module to import PDF to content.
+ */
+
+use Aspose\Cloud\Common\AsposeApp;
+use Aspose\Cloud\Common\Product;
+use Aspose\Cloud\Storage\Folder;
+use Aspose\Cloud\Words\Extractor;
+use Aspose\Cloud\Words\Converter as WordsConverter;
+
+/**
+ * Implements hook_init() for aspose_pdf_importer_init().
+ */
+function aspose_pdf_importer_init() {
+  // Load jquery libraries in drupal way.
+  drupal_add_library('system', 'ui.tabs');
+  drupal_add_library('system', 'ui.dialog');
+  drupal_add_library('system', 'drupal.ajax');
+}
+
+/**
+ * Autoloader for initializing/loading Aspose Library files.
+ */
+function aspose_pdf_importer_autoloader($class) {
+  $allowed_namespace = array(
+    'AsposeApp',
+    'Product',
+    'Folder',
+    'Pdf',
+    'TextEditor',
+    'Utils',
+    'Extractor',
+  );
+  $arr = explode('\\', $class);
+
+  if (in_array($arr['3'], $allowed_namespace)) {
+    include 'Aspose_Cloud_SDK_For_PHP-master/src/' . $arr[0] . '/' . $arr[1] . '/' . $arr[2] . '/' . $arr[3] . '.php';
+  }
+}
+
+/**
+ * Implements hook_theme() for aspose_pdf_importer_theme().
+ *
+ * Method to tell drupal to include modules's templates.
+ */
+function aspose_pdf_importer_theme() {
+  $path = drupal_get_path('module', 'aspose_pdf_importer');
+  return array(
+    'pdf_importer_html' => array(
+      'arguments' => array(
+        'base_url' => NULL,
+      ),
+      'path' => $path . '/templates',
+      'template' => 'pdf-importer-html',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for aspose_pdf_importer_form_node_form_alter().
+ *
+ * Alter Edit/Add node form to inject in Aspose Module markup.
+ */
+function aspose_pdf_importer_form_node_form_alter(&$form, &$form_state, $form_id) {
+  spl_autoload_register('aspose_pdf_importer_autoloader');
+
+  if (!isset($form_state['values'])) {
+    global $base_url;
+
+    // Get template initialized earlier in [aspose_pdf_importer_theme].
+    $pdf_importer_html = theme('pdf_importer_html', array(
+        'base_url' => $base_url,
+      )
+    );
+    $form['ssl_logo'] = array(
+      '#markup' => $pdf_importer_html,
+      '#required' => FALSE,
+      '#weight' => -5,
+    );
+  }
+}
+
+/**
+ * Custom callback function to handle file sent via ajax request.
+ */
+function aspose_pdf_importer_upload_file() {
+  spl_autoload_register('aspose_pdf_importer_autoloader');
+  /*
+   *  Assign appSID and appKey of your Aspose App
+   */
+  AsposeApp::$appSID = variable_get('aspose_pdf_importer_aspose_api_sid_value');
+  AsposeApp::$appKey = variable_get('aspose_pdf_importer_aspose_api_key_value');
+
+  spl_autoload_register('aspose_pdf_importer_autoloader');
+
+  if (empty(AsposeApp::$appSID) || empty(AsposeApp::$appKey)) {
+    $json_array = array();
+    $json_array['success'] = FALSE;
+    $json_array['message'] = 'Please go to settings page and enter valid Aspose Cloud App ID & Key.';
+
+    return drupal_json_output($json_array);
+  }
+
+  /*
+   * Assign Base Product URL
+   */
+  Product::$baseProductUri = 'http://api.aspose.com/v1.1';
+
+  // Define a destination.
+  $target_folder = '/aspose_uploads';
+
+  $json_array = array();
+
+  // If an existing file from cloud is selected to convert.
+  if (isset($_POST['existing_file']) && !empty($_POST['existing_file'])) {
+    $aspose_obj = new \Aspose\Cloud\Pdf\TextEditor($_POST['existing_file']);
+    $content = $aspose_obj->getText();
+    //$content = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $content);
+
+    $json_array['success'] = TRUE;
+    $json_array['message'] = 'Successfully Uploaded.';
+    $json_array['file_content'] = $content;
+
+    return drupal_json_output($json_array);
+  }
+  elseif (!empty($_FILES)) {
+    // In case a new file is uploaded.
+    $temp_file = $_FILES['filePath']['tmp_name'];
+    $target_path = dirname(__FILE__) . $target_folder;
+    $target_file = rtrim($target_path, '/') . '/' . time() . '_TT_' . $_FILES['filePath']['name'];
+
+    // Validate the file type.
+    $file_types = array('pdf');
+    $file_parts = pathinfo($_FILES['filePath']['name']);
+
+    if (in_array($file_parts['extension'], $file_types)) {
+      move_uploaded_file($temp_file, $target_file);
+
+      $uploadpath = $target_path;
+      $uploadpath = str_replace('/', '\\', $uploadpath);
+      $uploadpath = $uploadpath . '\\';
+
+      AsposeApp::$outPutLocation = $uploadpath;
+
+      if (!isset($_REQUEST['aspose'])) {
+        $folder = new Folder();
+        $uploadpath = str_replace("\\", "/", $uploadpath);
+        $upload_file = $target_file;
+        $folder->uploadFile($upload_file, '');
+      }
+
+      $target_file_details = pathinfo($target_file);
+
+      $aspose_obj = new \Aspose\Cloud\Pdf\TextEditor($target_file_details['basename']);
+      $content = $aspose_obj->getText();
+
+      $json_array['success'] = TRUE;
+      $json_array['message'] = 'Successfully Uploaded.';
+      $json_array['file_content'] = $content;
+
+      return drupal_json_output($json_array);
+    }
+    else {
+      $json_array['success'] = FALSE;
+      $json_array['message'] = 'Invalid File selected.';
+      return drupal_json_output($json_array);
+    }
+  }
+}
+
+/**
+ * Implements hook_menu() for aspose_pdf_importer_menu().
+ *
+ * This is to tell drupal about our custom links, we will use for
+ * ajax requests and to display settings page.
+ */
+function aspose_pdf_importer_menu() {
+  // Simple AJAX callback.
+  $items['ajax/UploadPdfToCloud'] = array(
+    'title' => 'Upload New PDF File',
+    'file' => 'aspose_pdf_importer.module',
+    'page callback' => 'aspose_pdf_importer_upload_file',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/settings/aspose-pdf-importer-settings'] = array(
+    'title' => 'Aspose PDF Importer Settings',
+    'description' => 'API Configurations for PDF Importer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_aspose_pdf_importer_form_builder'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  return $items;
+}
+
+/**
+ * Method to create settings page for Aspose PDF Importer module.
+ */
+function _aspose_pdf_importer_form_builder() {
+  // Input fields for settings form.
+  $form['aspose_api_sid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('APP SID'),
+    '#default_value' => variable_get('aspose_pdf_importer_aspose_api_sid_value'),
+  );
+
+  $form['aspose_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('APP KEY'),
+    '#default_value' => variable_get('aspose_pdf_importer_aspose_api_key_value'),
+  );
+
+  // Saves and executes a submission callback.
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#executes_submit_callback' => TRUE,
+  );
+
+  $form['#submit'] = array(
+    '_aspose_pdf_importer_form_submit_special_fuction_name',
+  );
+
+  return $form;
+}
+
+/**
+ * Method to handle settings form submission.
+ */
+function _aspose_pdf_importer_form_submit_special_fuction_name($form, &$form_state) {
+  variable_set('aspose_pdf_importer_aspose_api_sid_value', $_POST['aspose_api_sid']);
+  variable_set('aspose_pdf_importer_aspose_api_key_value', $_POST['aspose_api_key']);
+}
+
+
+/**
+ * Implements hook_page_build() for aspose_pdf_importer_page_build().
+ *
+ * Method to add module css and javascript on pages.
+ */
+function aspose_pdf_importer_page_build($path = NULL, $arg = NULL) {
+  $module_path = drupal_get_path('module', 'aspose_pdf_importer');
+  // Load CSS for Aspose module.
+  drupal_add_css($module_path . '/css/style.css', 'theme', 'all', FALSE);
+
+  // Load JS for Aspose module.
+  drupal_add_js($module_path . '/scripts/ajaxfileupload.js');
+  drupal_add_js($module_path . '/scripts/aspose_pdf_importer_script.js');
+}
+
+/**
+ * Implements hook_help() for aspose_pdf_importer_help().
+ *
+ * Displays help and module information.
+ */
+function aspose_pdf_importer_help($path, $arg) {
+  if($path == "admin/help#aspose_pdf_importer") {
+    return '<p>' . t("Aspose PDF Importer help") . '</p>';
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function aspose_pdf_importer_block_info() {
+  $blocks['aspose_pdf_importer'] = array(
+    // The name that will appear in the block list.
+    'info' => t('Aspose PDF Importer module Info Hook'),
+    // Default setting.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view() for aspose_pdf_importer_block_view().
+ */
+function aspose_pdf_importer_block_view() {
+  $blocks['aspose_pdf_importer'] = array(
+    // The name that will appear in the block list.
+    'info' => t('My Module from Block View'),
+    // Default setting.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Custom content function.
+ *
+ * Method to get files already uploaded on aspose cloud.
+ */
+function aspose_pdf_importer_cloud_files() {
+  spl_autoload_register('aspose_pdf_importer_autoloader');
+  /*
+   *  Assign appSID and appKey of your Aspose App.
+   */
+  AsposeApp::$appSID = variable_get('aspose_pdf_importer_aspose_api_sid_value');
+  AsposeApp::$appKey = variable_get('aspose_pdf_importer_aspose_api_key_value');
+
+  if (empty(AsposeApp::$appSID) || empty(AsposeApp::$appKey)) {
+    echo '<h3 style="color:red"> Please go to settings page and enter valid Aspose Cloud App ID & Key. </h3>';
+    return;
+  }
+  /*
+   * Assign Base Product URL.
+   */
+  Product::$baseProductUri = 'http://api.aspose.com/v1.1';
+
+  if (isset($_REQUEST['aspose_folder']) && !empty($_REQUEST['aspose_folder'])) {
+    $aspose_folder = $_REQUEST['aspose_folder'];
+  }
+  else {
+    $aspose_folder = '';
+  }
+
+  $folder = new Folder();
+
+  $files = $folder->getFilesList($aspose_folder);
+
+  $aspose_folders = array();
+  $aspose_files = array();
+  $options = '<option> --- Select Folder --- </option>';
+  $aspose_files_rows = "
+    <tr>
+        <td width=\"5%\"> </td>
+        <td width=\"95%\" ><strong> File Name </strong> </td>
+    </tr>
+";
+  if (is_array($files)) {
+    foreach ($files as $file) {
+      if ($file->IsFolder == '1') {
+        array_push($aspose_folders, $file->Name);
+        $options .= '<option value="' . $file->Name . '">' . $file->Name . '</option>';
+      }
+      else {
+        array_push($aspose_files, $file->Name);
+        if ($aspose_folder != '') {
+          $aspose_folder = $aspose_folder . '/';
+        }
+        $aspose_files_rows .= '
+                <tr>
+                    <td> <input type="radio" name="aspose_filename" value="' . $aspose_folder . $file->Name . '" /> </td>
+                    <td> ' . $file->Name . ' </td>
+                </tr>
+            ';
+      }
+    }
+  }
+  if (is_array($aspose_folders) && count($aspose_folders) > 0) {
+    $select_aspose_folder = '<select name="aspose_folder_name" id="aspose_folder_name">';
+    $select_aspose_folder .= $options;
+    $select_aspose_folder .= '</select>';
+  }
+  else {
+    $select_aspose_folder = '';
+  }
+
+  if (count($aspose_files) < 1) {
+    $aspose_files_rows = '
+        <tr>
+            <td colspan="2"> No Files Found. </td>
+        </tr>
+';
+  }
+
+  $result = '
+    <tr>
+		<td>' . $select_aspose_folder . '</td>
+    </tr>
+    <tr>
+		<td>
+		 <table id="bucket_files" cellspacing="8" width="100%">
+		    ' . $aspose_files_rows . '
+		 </table>
+		</td>
+    </tr>
+';
+
+  return $result;
+}

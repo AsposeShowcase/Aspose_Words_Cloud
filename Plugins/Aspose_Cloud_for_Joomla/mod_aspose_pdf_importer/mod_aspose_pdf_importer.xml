@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="3.1"
+	client="Administrator"
+	method="upgrade">
+	<name>Aspose PDF Importer</name>
+	<author>Fahad Adeel</author>
+	<creationDate>August 2014</creationDate>
+	<copyright>Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>fahad.adeel@aspose.com</authorEmail>
+	<authorUrl>http://cloud.aspose.com</authorUrl>
+	<version>1.0.0</version>
+	<description>Aspose PDF Importer Module for Joomla allows developers to get/read contents of PDF document without requiring any other software such as Adobe Acrobat or PDF reader. This module demonstrates the powerful import feature provided by Aspose.Pdf . It adds a simple button above Editor in Article section and asks for the PDF file to be imported into the editor. Once the Pdf file is provided, users get the document contents displayed on the editor immediately.</description>
+	<files>
+		<filename module="mod_aspose_pdf_importer">mod_aspose_pdf_importer.php</filename>
+		<folder>tmpl</folder>
+		<folder>Aspose_Cloud_SDK_For_PHP-master</folder>
+        <folder>uploads</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_aspose_pdf_importer.xml</filename>
+	</files>
+
+    <config>
+        <fields name="params">
+            <fieldset
+                    name="basic"
+                    label="Configuration / Settings"
+                    >
+                <field
+                        name="pdf_importer_app_sid"
+                        type="text"
+                        label="App SID"
+                        description="Aspose for Cloud App sID."
+                        >
+                </field>
+                <field
+                        name="pdf_importer_app_key"
+                        type="text"
+                        label="App key"
+                        description="Aspose for Cloud App sID."
+                        >
+                </field>
+
+                <field name="aspose_pdf_importer_option" type="radio" default="html" label="Import Content As" description="">
+                    <option value="html">HTML</option>
+                    <option value="text">Text</option>
+                </field>
+
+            </fieldset>
+
+            <fieldset
+                    name="pdf_importer_support_manual"
+                    label="Support / Manual"
+                    >
+                <field
+                        name="pdf_importer_support_manual"
+                        type="note"
+                        label="Support / Manual"
+                        description="For any suggestion / query / issue / requirement, please feel free to drop an email to &lt;a href='mailto:marketplace@aspose.com'&gt;marketplace@aspose.com&lt;/a&gt;. Get the &lt;a href='#' target='_blank'&gt;Manual here&lt;/a&gt;."
+                        >
+                </field>
+            </fieldset>
+
+            <fieldset
+                    name="pdf_importer_review"
+                    label="Review"
+                    >
+                <field
+                        name="pdf_importer_review"
+                        type="note"
+                        label="Review"
+                        description="Please feel free to add your reviews on &lt;a href='###' target='_blank'&gt;Joomla&lt;/a&gt;."
+                        >
+                </field>
+            </fieldset>
+
+        </fields>
+    </config>
+</extension>

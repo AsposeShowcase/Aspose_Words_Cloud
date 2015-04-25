@@ -1,0 +1,26 @@
+<html>
+<head><title>doconv</title></head>
+<body>
+  <form action="convert" method="post" enctype="multipart/form-data">
+    <label>Input file
+      <input type="file" name="input_file"/>
+    </label>
+    <br/>
+    <label>Output format
+      <select name="format">
+        <option value="pdf">PDF</option>
+        <option value="tiff">TIFF</option>
+        <option value="xps">XPS</option>
+        <option value="svg">SVG</option>
+        <option value="docx">DOCX</option>
+        <option value="doc">DOC</option>
+        <option value="xlsx">XLSX</option>
+        <option value="xls">XLS</option>
+        <option value="text">Text</option>
+      </select>
+    </label>
+    <br/>
+    <button type=submit>Upload</button>
+  </form>
+</body>
+</html>

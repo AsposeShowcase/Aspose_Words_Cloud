@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/classes-881c1a772e2bf6ba3645beaa2f897d0bd6bb10f6.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/commons-io-2.4-1c1e4abecb1f8b0aec8decda9d6e0ea69c4f5e29.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/internal_impl-21.0.3-7414af3f8c5f4e3ef04bf32614f5d955c7e1cc3d.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/.gradle/caches/modules-2/files-2.1/org.apache.directory.studio/org.apache.commons.io/2.4/b98d592c582262b3da8a871c7317f4902d98e996/org.apache.commons.io-2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b98d592c582262b3da8a871c7317f4902d98e996">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/org.apache.commons.io-2.4-4b272544cd21fb606a8cb902c39428f5b5ba5b11.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.8/af3be3f74d25fc5163b54f56a0d394b462dafafd/commons-codec-1.8.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="af3be3f74d25fc5163b54f56a0d394b462dafafd">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/commons-codec-1.8-7e421cdfe883098362c360315e60bae2c77d5bc6.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/classes-29a0848141c5a9265a1d36ffc1c45b8779ea50c4.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/bundles/debug/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="43e9262a5284393d0ca8c30637789044f49572d8">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/classes-865a551e746782b6efa2099e703f282fa4c189b6.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/.gradle/caches/modules-2/files-2.1/org.apache.directory.studio/org.apache.commons.codec/1.8/af243a2c8302b659b0afe9b4a2d8add1b7f964c0/org.apache.commons.codec-1.8.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="af243a2c8302b659b0afe9b4a2d8add1b7f964c0">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/org.apache.commons.codec-1.8-b15634613bd3f9ec28d635e78007d263841f924d.jar" />
+    </item>
+    <item
+        jar="/Volumes/HD2/adt-bundle-mac-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/support-annotations-21.0.3-f26951f29cb519da29718afe755e1836a3eab412.jar" />
+    </item>
+    <item
+        jar="/Users/muhammadsohailismail/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/muhammadsohailismail/Dropbox/Aspose/AndroidStudioProjects/AsposeAndroidCloudSDK/asposecloudsdk/build/intermediates/pre-dexed/test/debug/gson-2.3.1-2ef3b1fe4f353d7b081c3b67ac93959ba5b1c64f.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,5 @@
+name = Aspose DOC Importer
+description = A module to import content from documents
+core = 7.x
+; NEW LINE
+configure = admin/settings/aspose-doc-importer-settings

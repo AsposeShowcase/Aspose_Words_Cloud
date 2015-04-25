@@ -1,0 +1,277 @@
+<?php
+
+/**
+ * @file
+ * A module to import DOC to content
+ */
+
+use Aspose\Cloud\Common\AsposeApp;
+use Aspose\Cloud\Common\Product;
+use Aspose\Cloud\Words\Converter;
+
+/*
+ * Init method to initialize and autoload Aspose required files/Classes
+ */
+function aspose_doc_exporter_init() {
+    $path = drupal_get_path('module', 'aspose_doc_exporter');
+
+    spl_autoload_register('aspose_doc_exporter_autoloader');
+}
+
+/*
+ * Custom autoloader for loading Aspose classes
+ */
+function aspose_doc_exporter_autoloader($class) {
+    $allowed_namespace = array('AsposeApp','Product','Folder','Converter','Utils','Extractor');
+    $arr = explode('\\', $class);
+    $path = drupal_get_path('module', 'aspose_doc_exporter');
+    if(isset($arr[3])) {
+        if( in_array( $arr[3] , $allowed_namespace)){
+            include 'Aspose_Cloud_SDK_For_PHP-master/src/'. $arr[0] . '/' . $arr[1] . '/' .$arr[2] . '/' . $arr[3] . '.php';
+        }
+    } else if (isset($arr['3'])) {
+        if( in_array( $arr['3'] , $allowed_namespace)){
+            include 'Aspose_Cloud_SDK_For_PHP-master/src/'. $arr[0] . '/' . $arr[1] . '/' .$arr[2] . '/' . $arr[3] . '.php';
+        }
+    }
+}
+
+/*
+ * Implements menu hook
+ *
+ * This is to tell drupal about custom links for Aspose DOC Exporter and their callbacks
+ */
+function aspose_doc_exporter_menu () {
+    // Link to download extracted content file
+    $items['admin/aspose_doc_exporter/download_file'] = array(
+        'title' => 'Download exported DOC File',
+        'file' => 'aspose_doc_exporter.module',
+        'page callback' => 'aspose_doc_exporter_download_converted_file',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    // Link to Aspose DOC Exporter settings page
+    $items['admin/settings/aspose-doc-exporter-settings'] = array(
+        'title' => 'Aspose DOC Exporter Settings',
+        'description' => t('API Configurations for DOC Exporter'),
+        'page callback' => 'drupal_get_form', // assuming that you want to use a form
+        'page arguments' => array('_aspose_doc_exporter_form_builder'),
+        'access callback' => 'user_access',
+        'access arguments' => array('administer content types'), // or use hook_perm() to make your own
+        'type' => MENU_LOCAL_ACTION,
+    );
+
+    return $items;
+}
+
+/*
+ * Custom callback function to create settings form for Aspose DOC Exporter
+ *
+ */
+function _aspose_doc_exporter_form_builder(){
+    $form['aspose_doc_exporter_api_sid'] = array(
+        '#type' => 'textfield',
+        '#title' => t('APP SID'),
+        '#default_value' => variable_get('_aspose_doc_exporter_api_sid_value') //false by default
+    );
+
+    $form['aspose_doc_exporter_api_key'] = array(
+        '#type' => 'textfield',
+        '#title' => t('APP KEY'),
+        '#default_value' => variable_get('_aspose_doc_exporter_api_key_value') //false by default
+    );
+
+    // saves and executes a submission callback, see $form["#submit"] for that
+    $form['save'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+        '#executes_submit_callback' => true
+    );
+
+    $form['#submit'] = array(
+        '_aspose_doc_exporter_form_submit_special_fuction_name'
+    );
+
+    return $form;
+}
+
+/*
+ * Call back function to handle Submit action of settings form
+ *
+ */
+function _aspose_doc_exporter_form_submit_special_fuction_name($form, &$form_state){
+    //check $form_state['values'] and use this below line to set the value
+    variable_set('_aspose_doc_exporter_api_sid_value', $_POST['aspose_doc_exporter_api_sid']);
+    variable_set('_aspose_doc_exporter_api_key_value', $_POST['aspose_doc_exporter_api_key']);
+}
+
+/*
+ * Implements node operations hook
+ *
+ * Method to add custom operation for Aspose Doc Exporter module on Nodes listing page. (Find Content Page)
+ *
+ */
+function aspose_doc_exporter_node_operations() {
+    $operations = array(
+        'aspose_doc_exporter' => array(
+            'label' => t('Aspose Export to DOC'),
+            'callback' => 'aspose_doc_exporter_export_docs',
+        )
+    );
+    return $operations;
+}
+
+/*
+ * Callback method to handle submit call after Aspose DOC Export option is submitted on Find Content page
+ *
+ */
+function aspose_doc_exporter_export_docs($selected_nodes) {
+    try {
+        foreach($selected_nodes as $node_id) {
+            // load node
+            $node_data = node_load($node_id);
+
+            // Extract content
+            $node_title = $node_data->title;
+            $node_content = $node_data->body['und'][0]['safe_value'];
+
+            // Update node contents array
+            $node_contents[$node_title] = $node_content;
+        }
+
+
+        if(is_array($node_contents) && !empty($node_contents)) {
+            $file_name = _aspose_doc_exporter_convert_array_to_html($node_contents);
+        } else {
+            return false;
+        }
+
+        $upload_dir = drupal_get_path('module', 'aspose_doc_exporter');
+        $upload_path = $upload_dir . '/uploads/';
+        /*
+         *  Assign appSID and appKey of your Aspose App
+         */
+        AsposeApp::$appSID = variable_get('_aspose_doc_exporter_api_sid_value');
+        AsposeApp::$appKey = variable_get('_aspose_doc_exporter_api_key_value');
+
+        if(empty(AsposeApp::$appSID) || empty(AsposeApp::$appKey)) {
+            throw new Exception('Please go to settings page and enter valid Aspose Cloud App ID & Key.');
+            retrun;
+        }
+
+        AsposeApp::$outPutLocation = $upload_path;
+        /*
+         * Assign Base Product URL
+         */
+        Product::$baseProductUri = 'http://api.aspose.com/v1.1';
+
+        $func = new Converter('output.doc');
+        $func->convertLocalFile($file_name,'','doc');
+
+        $file_to_download = drupal_realpath($upload_path . 'output.doc');
+
+        global $base_url;
+        $success_message = 'Post exported. <a href="' . $base_url . '/admin/aspose_doc_exporter/download_file?file=' . $file_to_download . '">Click Here</a> to download the doc file.';
+
+        drupal_set_message(t($success_message), 'status');
+    } catch(Exception $someExp) {
+        drupal_set_message(t($someExp->getMessage()), 'error');
+    }
+}
+
+/*
+ * Method to handle callback for Download File Link.
+ *
+ */
+function aspose_doc_exporter_download_converted_file() {
+    $file = $_GET['file'];
+
+    $file_arr = explode('/',$file);
+    $file_name = $file_arr[count($file_arr) - 1];
+
+    header ("Content-type: octet/stream");
+    header ("Content-disposition: attachment; filename=".$file_name.";");
+    header("Content-Length: ".filesize($file));
+
+    readfile($file);
+    exit;
+}
+
+/*
+ * Custom method to convert array of node's content to html file.
+ */
+
+function _aspose_doc_exporter_convert_array_to_html($node_contents){
+    $upload_dir = drupal_get_path('module', 'aspose_doc_exporter');
+    $upload_path = $upload_dir . '/uploads/';
+    $filename = 'output.html';
+
+    $output_string = <<<EOD
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+EOD;
+
+    foreach($node_contents as $node_title => $node_content) {
+        $output_string .= <<<EOD
+        <h1> {$node_title} </h1>
+        <p> {$node_content} </p>
+        <hr />
+EOD;
+    }
+    $output_string .= <<<EOD
+</body>
+</html>
+EOD;
+
+    file_put_contents($upload_path . $filename,$output_string);
+
+    return $upload_path . $filename;
+}
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path
+ *   Which path of the site we're using to display help
+ * @param arg
+ *   Array that holds the current path as returned from arg() function
+ */
+function aspose_doc_exporter_help($path, $arg) {
+    switch ($path) {
+        case "admin/help#aspose_doc_exporter":
+            return '<p>' . t("I am testing from help hook") . '</p>';
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function aspose_doc_exporter_block_info() {
+    $blocks['aspose_doc_exporter'] = array(
+        // The name that will appear in the block list.
+        'info' => t('Aspose DOC Exporter from Block Info Hook'),
+        // Default setting.
+        //'cache' => DRUPAL_CACHE_PER_ROLE,
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    return $blocks;
+}
+
+function aspose_doc_exporter_view() {
+    $blocks['aspose_doc_exporter'] = array(
+        // The name that will appear in the block list.
+        'info' => t('Aspose DOC Exporter from Block View'),
+        // Default setting.
+        //'cache' => DRUPAL_CACHE_PER_ROLE,
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    return $blocks;
+}

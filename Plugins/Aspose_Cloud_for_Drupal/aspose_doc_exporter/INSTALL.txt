@@ -1,0 +1,15 @@
+Aspose Doc Exporter is a standard drupal 7 module.
+
+Steps to install.
+
+Requirements
+============
+
+  * Drupal 7  
+
+Installation
+============
+
+  1. Extract the archive to sites/all/modules
+  2. Go to admin/modules drupal page and enable Aspose Doc Exporter
+  3. click on configure link to configure it

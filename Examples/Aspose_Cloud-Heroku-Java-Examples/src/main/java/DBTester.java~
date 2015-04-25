@@ -1,0 +1,65 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public class DBTester 
+{
+	Connection con = null;
+	Statement st = null;
+	ResultSet rs = null;
+	
+//	String url = "jdbc:postgresql://ec2-23-23-234-187.compute-1.amazonaws.com:5432/d72kmro3ini7lo";
+//	String username = "aipofxujaejncu";
+//	String password = "7eSNupNG41-yFZiTTQoa6Rhmlg";
+	
+	public String testConnection()
+	{
+		String result = "Trying to connect....";
+		
+		try {
+		URI dbUri = new URI(System.getenv("HEROKU_POSTGRESQL_BLUE_URL"));
+		String username = dbUri.getUserInfo().split(":")[0];
+		    String password = dbUri.getUserInfo().split(":")[1];
+		    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+
+    		con = DriverManager.getConnection(dbUrl, username, password);
+
+//            con = DriverManager.getConnection(url, username, password);
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * from phonebook");
+            result += "Connected.\nFetching the records from table....\n";
+            result += ("Phone -- First Name -- Last Name -- Address\n");
+            result += ("=========================================================================\n");
+            while (rs.next()) {
+                result += (rs.getString(1) + " -- " + rs.getString(2) +
+                		" -- " + rs.getString(3) + " -- " + rs.getString(4) + "\n");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            result += "Error: " + ex.getMessage() + "\n";
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+                result += "Connection closed.\n";
+            } catch (SQLException ex) {
+            	System.err.println(ex.getMessage());
+            	result += "Error: " + ex.getMessage() + "\n";
+            }
+        }
+		
+		return result;
+	}
+}

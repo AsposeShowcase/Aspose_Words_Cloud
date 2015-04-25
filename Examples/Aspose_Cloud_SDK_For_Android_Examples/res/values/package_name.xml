@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="all_package_names">
+        <item >Barcode</item>
+        <item >Cells</item>
+        <item >OCR</item>
+        <item >PDF</item>
+        <item >Slides</item>
+        <item >Storage</item>
+        <item >Words</item>
+    </string-array>
+</resources>

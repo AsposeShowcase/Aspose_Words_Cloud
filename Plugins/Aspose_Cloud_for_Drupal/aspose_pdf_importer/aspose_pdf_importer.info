@@ -1,0 +1,5 @@
+name = Aspose PDF Importer
+description = A module to import content from PDF documents
+core = 7.x
+; NEW LINE
+configure = admin/settings/aspose-pdf-importer-settings

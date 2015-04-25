@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'sinatra'
+gem 'thin'
+gem 'rest-client'
+gem 'asposecloudsdk', :github => 'asposeforcloud/Aspose_Cloud_SDK_For_Ruby'

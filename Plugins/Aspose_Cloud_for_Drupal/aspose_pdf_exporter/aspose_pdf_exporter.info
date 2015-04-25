@@ -1,0 +1,5 @@
+name = Aspose PDF Exporter
+description = A module to export content from nodes to pdf
+core = 7.x
+; NEW LINE
+configure = admin/settings/aspose-pdf-exporter-settings

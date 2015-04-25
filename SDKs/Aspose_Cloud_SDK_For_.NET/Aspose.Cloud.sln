@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspose.Cloud", "Aspose.Cloud\Aspose.Cloud.csproj", "{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspose.CloudTestWebApp", "Aspose.CloudTestWebApp\Aspose.CloudTestWebApp.csproj", "{8BE47744-1A0F-4601-9703-64B50DFDCEE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspose.CloudTests", "Aspose.CloudTests\Aspose.CloudTests.csproj", "{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Test|Any CPU = Test|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{38FF8C84-41F0-4116-8A5C-26BF3AC1CCB2}.Test|Any CPU.Build.0 = Test|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{8BE47744-1A0F-4601-9703-64B50DFDCEE6}.Test|Any CPU.Build.0 = Test|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA2E608-5B5F-4487-BB11-E27BFFF38E68}.Test|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

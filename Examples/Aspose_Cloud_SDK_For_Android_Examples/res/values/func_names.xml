@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="barcode_reader_func">
+        <item>1. read</item>
+        <item>2. read</item>
+        <item>3. readFromLocalImage</item>
+    </string-array>
+    <string-array name="barcode_builder_func">
+        <item>1. save</item>
+        <item>2. save</item>
+    </string-array>
+    <string-array name="storage_folder_func">
+        <item>1. createFolder</item>
+        <item>2. deleteFile</item>
+        <item>3. deleteFolder</item>
+        <item>4. fileExist</item>
+        <item>5. getDiscUsage</item>
+        <item>6. getFile</item>
+        <item>7. getFilesList</item>
+        <item>8. uploadFile</item>
+    </string-array>
+    <string-array name="ocr_extractor_func">
+        <item>1. extractText</item>
+        <item>2. extractText</item>
+        <item>3. extractText</item>
+        <item>4. extractText</item>
+        <item>5. extractText</item>
+        <item>6. ExtractText</item>
+        <item>7. ExtractTextFromURL</item>
+    </string-array>
+    <string-array name="slides_document_func">
+        <item>1. getAllTextItems</item>
+        <item>2. getAllTextItems</item>
+        <item>3. getDocumentProperties</item>
+        <item>4. getDocumentPropertiesCount</item>
+        <item>5. getDocumentProperty</item>
+        <item>6. getSlideCount</item>
+        <item>7. removeAllProperties</item>
+        <item>8. replaceText</item>
+        <item>9. replaceText</item>
+        <item>10. saveAs</item>
+        <item>11. saveSlideAs</item>
+        <item>12. saveSlideAs</item>
+        <item>13. setDocumentProperty</item>
+    </string-array>
+    <string-array name="slides_extractor_func">
+        <item>1. getImageCount</item>
+        <item>2. getImageCount</item>
+        <item>3. getPresentationImages</item>
+        <item>4. getShapes</item>
+        <item>5. getShapesCount</item>
+    </string-array>
+    <string-array name="words_converter_func">
+        <item>1. convert</item>
+        <item>2. convert</item>
+        <item>3. convertLocalFile</item>
+        <item>4. convertLocalFile</item>
+    </string-array>
+    <string-array name="words_document_func">
+        <item>1. appendDocument</item>
+        <item>2. deleteProperty</item>
+        <item>3. getDocumentInfo</item>
+        <item>4. getProperties</item>
+        <item>5. getProperty</item>
+        <item>6. setProperty</item>
+    </string-array>
+    <string-array name="words_extractor_func">
+        <item>1. convertDrawingObject</item>
+        <item>2. getDrawingObject</item>
+        <item>3. getDrawingObjects</item>
+        <item>4. getimageData</item>
+        <item>5. getoleData</item>
+        <item>6. getText</item>
+    </string-array>
+    <string-array name="words_field_func">
+        <item>1. getMailMergeFieldNames</item>
+        <item>2. insertPageNumber</item>
+    </string-array>
+    <string-array name="words_mailmerege_func">
+        <item>1. executeMailMerege</item>
+        <item>2. executeMailMeregewithRegion</item>
+        <item>3. executeTemplate</item>
+    </string-array>
+     <string-array name="pdf_annotationeditor_func">
+        <item>1. downloadAttachment</item>
+        <item>2. getAllAnnotations</item>
+        <item>3. getAllAttachments</item>
+        <item>4. getAllBookmarks</item>
+        <item>5. getAllLinks</item>
+        <item>6. getAnnotation</item>
+        <item>7. getAnnotationsCount</item>
+        <item>8. getAttachment</item>
+        <item>9. getAttachmentsCount</item>
+        <item>10. getBookmark</item>
+        <item>11. getBookmarksCount</item>
+        <item>12. getChildBookmark</item>
+        <item>13. getChildBookmarksCount</item>
+        <item>14. getLink</item>
+        <item>15. getLinksCount</item>
+        <item>16. isChildBookmark</item>
+    </string-array>
+    <string-array name="pdf_converter_func">
+        <item>1. convert</item>
+        <item>2. convertLocalFile</item>
+        <item>3. convertLocalFile</item>
+        <item>4. getImage</item>
+        <item>5. getImage</item>
+    </string-array>
+    <string-array name="pdf_document_func">
+        <item>1. addNewPage</item>
+        <item>2. appendDocument</item>
+        <item>3. appendDocument</item>
+        <item>4. createEmptyPdf</item>
+        <item>5. createFromHtml</item>
+        <item>6. createFromXml</item>
+        <item>7. deletePage</item>
+        <item>8. getDocumentProperties</item>
+        <item>9. getDocumentProperty</item>
+        <item>10. getFormField</item>
+        <item>11. getFormFieldCount</item>
+        <item>12. getFormFields</item>
+        <item>13. getPageCount</item>
+        <item>14. mergeDocuments</item>
+        <item>15. movePage</item>
+        <item>16. removeAllProperties</item>
+        <item>17. replaceImageUsingFile</item>
+        <item>18. replaceImageUsingStream</item>
+        <item>19. setDocumentProperty</item>
+    </string-array>
+    <string-array name="pdf_extractor_func">
+        <item>1. getImage</item>
+        <item>2. getImage</item>
+        <item>3. getImageCount</item>
+    </string-array>
+    <string-array name="pdf_texteditor_func">
+        <item>1. getFragmentCount</item>
+        <item>2. getSegmentCount</item>
+        <item>3. getText</item>
+        <item>4. getText</item>
+        <item>5. getTextFormat</item>
+        <item>6. getTextFormat</item>
+        <item>7. getTextItems</item>
+        <item>8. getTextItems</item>
+        <item>9. getTextItems</item>
+        <item>10. replaceText</item>
+        <item>11. replaceText</item>
+    </string-array>
+    <string-array name="cells_charteditor_func">
+        <item>1. addChart</item>
+        <item>2. deleteChart</item>
+        <item>3. getBorder</item>
+        <item>4. getChartArea</item>
+        <item>5. getFillFormat</item>
+    </string-array>
+    <string-array name="cells_converter_func">
+        <item>1. autoShapeToImage</item>
+        <item>2. chartToImage</item>
+        <item>3. convertLocalFile</item>
+        <item>4. oleObjectToImage</item>
+        <item>5. pictureToImage</item>
+        <item>6. save</item>
+        <item>7. worksheetToImage</item>
+    </string-array>
+    <string-array name="cells_texteditor_func">
+        <item>1. findText</item>
+        <item>2. findText</item>
+        <item>3. getTextItems</item>
+        <item>4. getTextItems</item>
+        <item>5. replaceText</item>
+        <item>6. replaceText</item>
+    </string-array>
+    <string-array name="cells_workbook_func">
+        <item>1. addWorksheet</item>
+        <item>2. clearModifyPassword</item>
+        <item>3. createEmptyWorkbook</item>
+        <item>4. createWorkbookFromSmartMarkerTemplate</item>
+        <item>5. createWorkbookFromTemplate</item>
+        <item>6. decryptWorkbook</item>
+        <item>7. encryptWorkbook</item>
+        <item>8. getDefaultStyle</item>
+        <item>9. getNamesCount</item>
+        <item>10. getProperties</item>
+        <item>11. getProperty</item>
+        <item>12. getWorksheetCount</item>
+        <item>13. mergeWorkbook</item>
+        <item>14. processSmartMarker</item>
+        <item>15. protectWorkbook</item>
+        <item>16. removeAllProperties</item>
+        <item>17. removeProperty</item>
+        <item>18. removeWorksheet</item>
+        <item>19. setModifyPassword</item>
+        <item>20. setProperty</item>
+        <item>21. unprotectWorkbook</item>
+    </string-array>
+    <string-array name="cells_worksheet_func">
+        <item>1. calculateFormula</item>
+        <item>2. deleteRow</item>
+        <item>3. getAutoShapeByIndex</item>
+        <item>4. getAutoShapesCount</item>
+        <item>5. getCell</item>
+        <item>6. getCellsCount</item>
+        <item>7. getCellsList</item>
+        <item>8. getCellStyle</item>
+        <item>9. getChartByIndex</item>
+        <item>10. getChartsCount</item>
+        <item>11. getColumn</item>
+        <item>12. getColumnsList</item>
+        <item>13. getComment</item>
+        <item>14. getCommentsCount</item>
+        <item>15. getHyperlinkByIndex</item>
+        <item>16. getHyperlinksCount</item>
+        <item>17. getMaxColumn</item>
+        <item>18. getMaxRow</item>
+        <item>19. getMergedCellByIndex</item>
+        <item>20. getMergedCellsCount</item>
+        <item>21. getOleObjectByIndex</item>
+        <item>22. getOleObjectsCount</item>
+        <item>23. getPictureByIndex</item>
+        <item>24. getPicturesCount</item>
+        <item>25. getRow</item>
+        <item>26. getRowsCount</item>
+        <item>27. getRowsList</item>
+        <item>28. getValidationByIndex</item>
+        <item>29. getValidationsCount</item>
+        <item>30. hideWorksheet</item>
+        <item>31. moveWorksheet</item>
+        <item>32. setCellStyle</item>
+        <item>33. setCellValue</item>
+        <item>34. sortData</item>
+        <item>35. unhideWorksheet</item>
+    </string-array>
+
+</resources>

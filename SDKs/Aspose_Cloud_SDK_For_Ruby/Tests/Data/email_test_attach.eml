@@ -1,0 +1,64 @@
+Return-path: <masood@kpisol.com>
+Envelope-to: masood@kpisol.com
+Delivery-date: Wed, 14 May 2014 12:05:07 -0600
+Received: from [182.188.145.203] (port=17969 helo=[192.168.1.101])
+	by box260.bluehost.com with esmtpsa (TLSv1:DHE-RSA-AES128-SHA:128)
+	(Exim 4.82)
+	(envelope-from <masood@kpisol.com>)
+	id 1WkdYA-0000uu-5p
+	for masood@kpisol.com; Wed, 14 May 2014 12:05:07 -0600
+Message-ID: <5373B046.7050707@kpisol.com>
+Date: Wed, 14 May 2014 23:04:54 +0500
+From: Masood Anwer <masood@kpisol.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Thunderbird/24.5.0
+MIME-Version: 1.0
+To: masood@kpisol.com
+Subject: Attach doc
+Content-Type: multipart/mixed;
+ boundary="------------040308050604060908060305"
+X-Identified-User: {2469:box260.bluehost.com:kpisolco:kpisol.com} {sentby:smtp auth 182.188.145.203 authed with masood@kpisol.com}
+
+This is a multi-part message in MIME format.
+--------------040308050604060908060305
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+
+checking attachment with email.
+
+--------------040308050604060908060305
+Content-Type: text/plain; charset=windows-1252;
+ name="readme.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="readme.txt"
+
+Aspose Cloud SDK Bundle
+The goal of this bundle is to provide an easy way to integrate the Aspose Cloud SDK into a Symfony2 project.
+
+1. Installation 
+AsposeCloudsdkBundle can be installed via Composer. Add the following to your composer.json file:
+"aspose/cloud-sdk-bundle": "dev-master"
+
+Then, you can install the new dependencies by running Composer's update command from the directory where your composer.json file is located:
+composer.update
+
+Now, Composer will automatically download all required files, and install them for you. All that is left to do is to update your AppKernel.php file, and register the new bundle:
+// app/AppKernel.php
+public function registerBundles()
+    {
+    // ...
+     new Aspose\Bundle\CloudBundle\AsposeCloudBundle(),
+    // ...
+);
+}
+
+2. Usage
+AsposeCloudsdkBundle is called as a standard service.
+$this->get('asposeapp');
+This will return you object of Product class and you can access properties and methods of class.
+
+3. License
+This bundle is under the MIT license. See the complete license in the bundle:
+Resources/meta/LICENSE
+
+--------------040308050604060908060305--

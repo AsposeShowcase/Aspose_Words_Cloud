@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="barcode_class_names">
+        <item>BarCodeBuilder</item>
+        <item>BarCodeReader</item>
+    </string-array>
+    <string-array name="cells_class_names">
+        <item>ChartEditor</item>
+        <item>Converter</item>
+        <item>TextEditor</item>
+        <item>Workbook</item>
+        <item>Worksheet</item>
+    </string-array>
+    <string-array name="ocr_class_names">
+        <item>Extractor</item>
+    </string-array>
+    <string-array name="pdf_class_names">
+        <item>AnnotationEditor</item>
+        <item>Converter</item>
+        <item>Document</item>
+        <item>Extractor</item>
+        <item>TextEditor</item>
+    </string-array>
+    <string-array name="slides_class_names">
+        <item>Document</item>
+        <item>Extractor</item>
+    </string-array>
+    <string-array name="words_class_names">
+        <item>Converter</item>
+        <item>Document</item>
+        <item>Extractor</item>
+        <item>Field</item>
+        <item>MailMerge</item>
+     </string-array>
+    <string-array name="storage_class_names">
+        <item >Folder</item>
+    </string-array>
+
+</resources>

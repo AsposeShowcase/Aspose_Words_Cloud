@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="AppSID">
+        <EditTextPreference android:title="Enter AppSID" android:summary="AppSID which can be obtain from Aspose Website" android:key="app_sid"/>
+    </PreferenceCategory><PreferenceCategory android:title="AppKey">
+        
+        <EditTextPreference android:title="Enter AppKey" android:summary="AppKey which can be obtain from Aspose Website" android:key="app_key"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>
